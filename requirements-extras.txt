@@ -1,0 +1,24 @@
+# --- Optional / heavy extras (NOT needed for the default Landmark MLP app) ---
+# Install on top of requirements.txt for the full local experience:
+#   pip install -r requirements.txt -r requirements-extras.txt
+# These are intentionally kept out of the deploy set — torch + tensorflow +
+# transformers are too large for Streamlit Community Cloud's free tier.
+
+# Hugging Face SigLIP2 image recognizer
+torch>=2.2
+torchvision>=0.17
+transformers>=4.45
+
+# Sign Language MNIST CNN recognizer
+tensorflow>=2.13
+
+# EDA / training notebook
+matplotlib>=3.7
+seaborn>=0.12
+ipykernel>=6.0
+nbformat>=5.0
+
+# Dataset download + local audio playback + offline TTS fallback
+kaggle>=1.6
+sounddevice>=0.4
+pyttsx3>=2.90

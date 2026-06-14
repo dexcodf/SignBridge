@@ -500,7 +500,15 @@ def _live_recognize() -> None:
     ctx = webrtc_streamer(
         key="sign-live",
         mode=WebRtcMode.SENDRECV,
-        rtc_configuration={"iceServers": [{"urls": ["stun:stun.l.google.com:19302"]}]},
+        rtc_configuration={"iceServers": [
+            {"urls": ["stun:stun.l.google.com:19302"]},
+            # Free public TURN relay so the camera also connects when the app is
+            # hosted (e.g. Streamlit Cloud), not just on localhost.
+            {"urls": ["turn:openrelay.metered.ca:80"],
+             "username": "openrelayproject", "credential": "openrelayproject"},
+            {"urls": ["turn:openrelay.metered.ca:443"],
+             "username": "openrelayproject", "credential": "openrelayproject"},
+        ]},
         media_stream_constraints={
             # Proven-stable settings (same as the version that worked smoothly).
             "video": {

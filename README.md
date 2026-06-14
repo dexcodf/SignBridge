@@ -52,8 +52,14 @@ python -m src.train_landmarks --data-dir /tmp/asl/asl_alphabet_train/asl_alphabe
 cd sign_language_tts
 python -m venv .venv
 .venv\Scripts\activate          # Windows  (use: source .venv/bin/activate on macOS/Linux)
-pip install -r requirements.txt
+pip install -r requirements.txt                          # core (Landmark MLP + TTS)
+pip install -r requirements-extras.txt                   # optional: SigLIP2, CNN, notebook
 ```
+
+> `requirements.txt` is the light, deploy-ready core (the default **Landmark
+> MLP** recognizer). `requirements-extras.txt` adds the heavy optional pieces
+> (torch / tensorflow / transformers) for the SigLIP2 + CNN modes and the
+> notebook — skip it for a Streamlit Cloud deploy.
 
 > **Windows + OneDrive note:** this project folder lives under OneDrive. Do
 > **not** put the `.venv` here — OneDrive tries to sync the ~10k files
