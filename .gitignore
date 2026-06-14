@@ -1,0 +1,22 @@
+# Large / regenerable datasets — NOT committed (app degrades gracefully).
+# Re-fetch with: python -m src.download_data
+data/*
+!data/.gitkeep
+
+# Runtime artifacts (generated speech, plots, logs)
+outputs/*
+!outputs/.gitkeep
+
+# Regenerable landmark cache (only needed to retrain the landmark model)
+models/landmarks_raw.npz
+# MediaPipe hand model — auto-downloads on first run
+models/hand_landmarker.task
+
+# Committed runtime models that the app NEEDS are kept (not ignored):
+#   models/landmark_mlp.joblib  -> default recognizer
+#   models/sign_cnn.keras       -> CNN mode
+
+# Local venv / caches
+.venv/
+__pycache__/
+*.pyc

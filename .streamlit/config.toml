@@ -1,0 +1,13 @@
+# Theme for `streamlit run app/streamlit_app.py` (run from this folder).
+# The preview launcher passes the same values as --theme.* flags.
+# handkit.design-inspired: near-black, Space Grotesk, lime accent.
+[theme]
+base = "dark"
+primaryColor = "#C2FF45"
+backgroundColor = "#0A0A0C"
+secondaryBackgroundColor = "#141418"
+textColor = "#F2F2F4"
+font = "sans serif"
+
+[server]
+fileWatcherType = "none"
