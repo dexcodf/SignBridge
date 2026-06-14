@@ -458,8 +458,13 @@ def _live_recognize() -> None:
     )
     try:
         from streamlit_webrtc import WebRtcMode, webrtc_streamer
-    except ImportError:
-        st.error("Live mode needs `streamlit-webrtc`. Install: `pip install streamlit-webrtc av`.")
+    except Exception as exc:  # noqa: BLE001 - import or native-lib failure
+        st.warning(
+            "🔴 Live streaming isn't available in this environment "
+            f"(`{type(exc).__name__}`). Use **📸 Snapshot / Upload** above — it "
+            "runs the exact same recogniser and works everywhere, including hosted "
+            "demos."
+        )
         return
 
     c1, c2 = st.columns(2)
