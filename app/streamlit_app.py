@@ -71,9 +71,14 @@ def get_tts():
     return TTSEngine()
 
 
+def _dataset_csv():
+    """Full training CSV if present, else the small bundled sample."""
+    return config.TRAIN_CSV if config.TRAIN_CSV.exists() else config.SAMPLE_CSV
+
+
 @st.cache_data(show_spinner="Loading dataset…")
 def get_clean_train() -> pd.DataFrame:
-    return clean(load_raw(config.TRAIN_CSV))
+    return clean(load_raw(_dataset_csv()))
 
 
 def decode_image(uploaded) -> "np.ndarray":
@@ -573,12 +578,19 @@ def _live_recognize() -> None:
 def dataset_tab() -> None:
     st.subheader("Dataset explorer — Sign Language MNIST")
 
-    if not config.TRAIN_CSV.exists():
+    csv = _dataset_csv()
+    if not csv.exists():
         st.warning(
             "Dataset not found. Download it into `data/`:\n\n"
             "`kaggle datasets download -d datamunge/sign-language-mnist -p data --unzip`"
         )
         return
+    if csv == config.SAMPLE_CSV:
+        st.info(
+            "Showing a small **bundled sample** (~1k images) so this works on the "
+            "hosted demo. For the full distribution, download the dataset: "
+            "`kaggle datasets download -d datamunge/sign-language-mnist -p data --unzip`"
+        )
 
     df = get_clean_train()
     c1, c2, c3 = st.columns(3)
@@ -868,7 +880,9 @@ def main() -> None:
     with st.sidebar:
         st.header("⚙️ Status")
         st.write("**Recognizer:**", "✅ ready" if ready else "❌ not trained")
-        st.write("**Dataset:**", "✅ found" if config.TRAIN_CSV.exists() else "❌ missing")
+        _ds = ("✅ full" if config.TRAIN_CSV.exists()
+               else "🟡 sample" if config.SAMPLE_CSV.exists() else "❌ missing")
+        st.write("**Dataset:**", _ds)
         st.caption("MediaPipe · Landmark MLP · SigLIP2 · Supertonic TTS")
 
     tab1, tab2, tab3, tab4 = st.tabs(

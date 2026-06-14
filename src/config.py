@@ -19,6 +19,9 @@ OUTPUTS_DIR = PROJECT_ROOT / "outputs"
 
 TRAIN_CSV = DATA_DIR / "sign_mnist_train.csv"
 TEST_CSV = DATA_DIR / "sign_mnist_test.csv"
+# Small balanced sample committed to the repo so the Dataset explorer works on
+# hosted demos without the full 200 MB download.
+SAMPLE_CSV = DATA_DIR / "sign_mnist_sample.csv"
 MODEL_PATH = MODELS_DIR / "sign_cnn.keras"
 
 for _d in (DATA_DIR, MODELS_DIR, OUTPUTS_DIR):

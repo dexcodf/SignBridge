@@ -2,6 +2,7 @@
 # Re-fetch with: python -m src.download_data
 data/*
 !data/.gitkeep
+!data/sign_mnist_sample.csv
 
 # Runtime artifacts (generated speech, plots, logs)
 outputs/*
